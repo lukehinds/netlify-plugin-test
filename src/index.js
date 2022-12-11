@@ -1,5 +1,5 @@
 // import fetch from 'node-fetch';
-import fs from 'fs';
+import fetch from 'node-fetch';
 // This is the main file for the Netlify Build plugin test.
 // Please read the comments to learn more about the Netlify Build plugin syntax.
 // Find more information in the Netlify documentation.
@@ -91,11 +91,9 @@ export const onEnd = async function ({
             // check if IS_LOCAL is false, if it is then we are in production
             // and we want to write this to a file called index.html
             if (IS_LOCAL === false) {
-              // get the id token from the netlify context
-              // get the user email from the netlify context
-        
-              console.log(netlifyConfig.build.enviroment);
-       
+              // call the netlify api to get the getCurrentUser
+              const response = await fetch('https://api.netlify.com/api/v1/user')
+              console.log(response.body);
 
             }
           
