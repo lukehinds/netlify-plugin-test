@@ -26,26 +26,30 @@ export const onPreBuild = async function ({
   inputs
 }) {
     try {
-      const clientId = inputs.clientId || process.env.CLIENT_ID
-    const auth = await authenticate(NetlifyAPI.client, clientId)
-
-    const {
-      authLink,
-      ticket
-    } = auth
-
-    console.log(authLink)
-
-    const accessToken = await NetlifyAPI.client.getAccessToken(ticket)
-
-    const site = await NetlifyAPI.client.getSite({site_id: constants.SITE_ID})
-
-    console.log(site)
+    const clientId = inputs.clientId || process.env.CLIENT_ID
+    console.log(`Client ID: ${clientId}`);
+    const clientSecret = inputs.clientSecret || process.env.CLIENT_SECRET
+    console.log(`Client Secret: ${clientSecret}`);
     
-    // Object.keys(site.build_settings.env).forEach(envVarKey => {
-    //   const envVarVal = site.build_settings.env[envVarKey]
-    //   setEnvVars(envVarKey, envVarVal);
-    // })
+    // const auth = await authenticate(NetlifyAPI.client, clientId)
+
+    // const {
+    //   authLink,
+    //   ticket
+    // } = auth
+
+    // console.log(authLink)
+
+    // const accessToken = await NetlifyAPI.client.getAccessToken(ticket)
+
+    // const site = await NetlifyAPI.client.getSite({site_id: constants.SITE_ID})
+
+    // console.log(site)
+    
+    // // Object.keys(site.build_settings.env).forEach(envVarKey => {
+    // //   const envVarVal = site.build_settings.env[envVarKey]
+    // //   setEnvVars(envVarKey, envVarVal);
+    // // })
   } catch (error) {
     console.log(error)
   }
