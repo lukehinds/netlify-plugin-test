@@ -58,6 +58,7 @@
     "release-it": "^15.0.0"
   },
   "dependencies": {
+    "netlify": "^13.0.2",
     "node-fetch": "^3.3.0"
   }
 }

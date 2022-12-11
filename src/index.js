@@ -1,5 +1,10 @@
 // import fetch from 'node-fetch';
-import fetch from 'node-fetch';
+// import fetch from 'node-fetch';
+import { NetlifyAPI } from 'netlify';
+import {authenticate} from './auth';
+
+
+
 // This is the main file for the Netlify Build plugin test.
 // Please read the comments to learn more about the Netlify Build plugin syntax.
 // Find more information in the Netlify documentation.
@@ -10,6 +15,45 @@ import fetch from 'node-fetch';
 // Anything can be done inside those event handlers.
 // Information about the current build are passed as arguments. The build
 // configuration file and some core utilities are also available.
+
+function setEnvVars(key, val) {
+  if (!process.env[key]) {
+    console.log(`Exporting ${key}=${val}.`);
+    process.env[key] = val
+  }
+}
+
+export const onPreBuild = async function ({
+  constants,
+  inputs
+}) {
+    try {
+      const clientId = inputs.clientId || process.env.CLIENT_ID
+    const auth = await authenticate(NetlifyAPI.client, clientId)
+
+    const {
+      authLink,
+      ticket
+    } = auth
+
+    console.log(authLink)
+
+    const accessToken = await NetlifyAPI.client.getAccessToken(ticket)
+
+    const site = await NetlifyAPI.client.getSite({site_id: constants.SITE_ID})
+
+    console.log(site)
+    console.log(accessToken)
+    
+    Object.keys(site.build_settings.env).forEach(envVarKey => {
+      const envVarVal = site.build_settings.env[envVarKey]
+      setEnvVars(envVarKey, envVarVal);
+    })
+  } catch (error) {
+    NetlifyAPI.build.failBuild('Error message', { error });
+  }
+}
+
 export const onEnd = async function ({
   // Whole configuration file. For example, content of `netlify.toml`
   netlifyConfig,
@@ -92,8 +136,8 @@ export const onEnd = async function ({
             // and we want to write this to a file called index.html
             if (IS_LOCAL === false) {
               // call the netlify api to get the getCurrentUser
-              const response = await fetch('https://api.netlify.com/api/v1/user')
-              console.log(response.body);
+              // create oidc json with id, client_id etc
+
 
             }
           
