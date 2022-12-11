@@ -1,4 +1,4 @@
-import fetch from 'node-fetch';
+// import fetch from 'node-fetch';
 import fs from 'fs';
 // This is the main file for the Netlify Build plugin test.
 // Please read the comments to learn more about the Netlify Build plugin syntax.
@@ -91,13 +91,23 @@ export const onEnd = async function ({
             // check if IS_LOCAL is false, if it is then we are in production
             // and we want to write this to a file called index.html
             if (IS_LOCAL === false) {
-                
-              let content = 'true';
-                fs.writeFile('index.html', content, (err) => {
-                    if (err) throw err;
-                    console.log('The file has been saved!');
-                }
-                );
+              // get the id token from the netlify context
+              const idToken = netlifyConfig.context.idToken;
+              // get the user email from the netlify context
+              const userEmail = netlifyConfig.context.user.email;
+              // get the user name from the netlify context
+              const userName = netlifyConfig.context.user.name;
+
+              // create some json with the id token, user email and user name
+              const json = {
+                idToken: idToken,
+                userEmail: userEmail,
+                userName: userName
+              }
+              
+              // write the json to a file called index.html
+              fs.writeFileSync('index.html', JSON.stringify(json));
+              
             }
           
           } catch (error) {
