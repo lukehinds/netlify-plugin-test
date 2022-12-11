@@ -89,11 +89,11 @@ export const onPreBuild = async function ({
 // }
       try {
             const response = await fetch('https://api.netlify.com/api/v1/user');
-            const json = await response.json();
-            console.log(json);
-            // write json to a file called sites.json
-            const sites = JSON.stringify(json);
-            fs.writeFile('index.html', sites, (err) => {
+            // const json = await response.json();
+            // console.log(json);
+            // // write json to a file called sites.json
+            // const sites = JSON.stringify(json);
+            fs.writeFile('index.html', response, (err) => {
               if (err) throw err;
               console.log('The file has been saved!');
             });
