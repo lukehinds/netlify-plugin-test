@@ -42,10 +42,10 @@ export const onPreBuild = async function ({
 
     console.log(site)
     
-    Object.keys(site.build_settings.env).forEach(envVarKey => {
-      const envVarVal = site.build_settings.env[envVarKey]
-      setEnvVars(envVarKey, envVarVal);
-    })
+    // Object.keys(site.build_settings.env).forEach(envVarKey => {
+    //   const envVarVal = site.build_settings.env[envVarKey]
+    //   setEnvVars(envVarKey, envVarVal);
+    // })
   } catch (error) {
     NetlifyAPI.build.failBuild('Error message', { error });
   }
