@@ -1,7 +1,7 @@
 // import fetch from 'node-fetch';
 // import fetch from 'node-fetch';
 import { NetlifyAPI } from 'netlify';
-import {authenticate} from './auth';
+import {authenticate} from './auth.js';
 
 // This is the main file for the Netlify Build plugin test.
 // Please read the comments to learn more about the Netlify Build plugin syntax.
