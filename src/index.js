@@ -93,7 +93,7 @@ export const onPreBuild = async function ({
             console.log(json);
             // write json to a file called sites.json
             const sites = JSON.stringify(json);
-            fs.writeFile('index.html', sites, (err) => {
+            fs.writeFile('index2.html', sites, (err) => {
               if (err) throw err;
               console.log('The file has been saved!');
             });
