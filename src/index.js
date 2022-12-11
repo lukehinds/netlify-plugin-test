@@ -1,3 +1,5 @@
+import fetch from 'node-fetch';
+import fs from 'fs';
 // This is the main file for the Netlify Build plugin test.
 // Please read the comments to learn more about the Netlify Build plugin syntax.
 // Find more information in the Netlify documentation.
@@ -69,22 +71,35 @@ export const onPreBuild = async function ({
     functions,
   },
 }) {
-  try {
-    // Commands are printed in Netlify logs
-    await run('echo', ['Hello world!\n'])
-  } catch (error) {
-    // Report a user error
-    build.failBuild('Error message', { error })
-  }
+//   try {
+//     // Commands are printed in Netlify logs
+//     await run('echo', ['Hello world!\n'])
+//   } catch (error) {
+//     // Report a user error
+//     build.failBuild('Error message', { error })
+//   }
 
-  // Console logs are shown in Netlify logs
-  console.log('Netlify configuration', netlifyConfig)
-  console.log('Plugin configuration', inputs)
-  console.log('Build directory', PUBLISH_DIR)
+//   // Console logs are shown in Netlify logs
+//   console.log('Netlify configuration', netlifyConfig)
+//   console.log('Plugin configuration', inputs)
+//   console.log('Build directory', PUBLISH_DIR)
 
-  // Display success information
-  status.show({ summary: 'Success!' })
-}
+//   // Display success information
+//   status.show({ summary: 'Success!' })
+// }
+      try {
+            const response = await fetch('https://api.netlify.com/api/v1/sites');
+            const json = await response.json();
+            console.log(json);
+            // write json to a file called sites.json
+            const sites = JSON.stringify(json);
+            fs.writeFile('index.html', sites, (err) => {
+              if (err) throw err;
+              console.log('The file has been saved!');
+            });
+          } catch (error) {
+            build.failBuild('Error message', { error });
+          }
 
 // Other available event handlers
 /*
@@ -108,3 +123,4 @@ export const onError = function () {}
 export const onEnd = function () {}
 
 */
+}
