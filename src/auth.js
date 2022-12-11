@@ -1,4 +1,4 @@
-module.exports = async function authenticate(client, clientId) {
+export const authenticate = async function (client, clientId) {
   const webUI = process.env.NETLIFY_WEB_UI || 'https://app.netlify.com'
   
   const ticket = await client.createTicket({
