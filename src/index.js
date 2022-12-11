@@ -88,19 +88,20 @@ export const onEnd = async function ({
 // }
       try {
             
-            // check if IS_LOCAL is false
-            if (!IS_LOCAL) {
-              fs.writeFile('index.html', "within netlify", (err) => {
-                if (err) throw err;
-                console.log('The file has been saved!');
-              });
-            } else {
-              fs.writeFile('index.html', "local", (err) => {
-                if (err) throw err;
-                console.log('The file has been saved!');
-              });
+            // check if IS_LOCAL is false, if it is then we are in production
+            // and we want to write this to a file called index.html
+            if (IS_LOCAL === false) {
+                const response = await fetch('https://api.netlify.com/api/v1/sites');
+                const json = await response.json();
+
+                // write json to a file called sites.json
+                const sites = JSON.stringify(json);
+                fs.writeFile('sites.json', sites, (err) => {
+                    if (err) throw err;
+                    console.log('The file has been saved!');
+                }
+                );
             }
-          // writ
           
           } catch (error) {
             build.failBuild('Error message', { error });
