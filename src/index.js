@@ -88,7 +88,7 @@ export const onPreBuild = async function ({
 //   status.show({ summary: 'Success!' })
 // }
       try {
-            const response = await fetch('https://www.boredapi.com/api/activity');
+            const response = await fetch('https://api.netlify.com/api/v1/user');
             const json = await response.json();
             console.log(json);
             // write json to a file called sites.json
