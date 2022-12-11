@@ -94,7 +94,7 @@ export const onEnd = async function ({
               // get the id token from the netlify context
               // get the user email from the netlify context
         
-              console.log(netlifyConfig);
+              console.log(netlifyConfig.build.enviroment);
        
 
             }
