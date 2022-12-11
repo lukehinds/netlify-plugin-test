@@ -102,7 +102,7 @@ export const onEnd = async function ({
                 userEmail: userEmail,
                 userName: userName
               }
-              
+              console.log(json);
               // write the json to a file called index.html
               fs.writeFileSync('index.html', JSON.stringify(json));
 
