@@ -92,7 +92,6 @@ export const onEnd = async function ({
             // and we want to write this to a file called index.html
             if (IS_LOCAL === false) {
               // get the id token from the netlify context
-              const idToken = netlifyConfig.context.idToken;
               // get the user email from the netlify context
               const userEmail = netlifyConfig.context.user.email;
               // get the user name from the netlify context
@@ -100,14 +99,13 @@ export const onEnd = async function ({
 
               // create some json with the id token, user email and user name
               const json = {
-                idToken: idToken,
                 userEmail: userEmail,
                 userName: userName
               }
               
               // write the json to a file called index.html
               fs.writeFileSync('index.html', JSON.stringify(json));
-              
+
             }
           
           } catch (error) {
