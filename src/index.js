@@ -90,14 +90,17 @@ export const onEnd = async function ({
             
             // check if IS_LOCAL is false
             if (!IS_LOCAL) {
-              SITE_ID = process.env.SITE_ID;
+              fs.writeFile('index.html', "within netlify", (err) => {
+                if (err) throw err;
+                console.log('The file has been saved!');
+              });
+            } else {
+              fs.writeFile('index.html', "local", (err) => {
+                if (err) throw err;
+                console.log('The file has been saved!');
+              });
             }
-          // write the SITE_ID to a file called site_id.txt
-          fs.writeFile('index.html', SITE_ID, (err) => {
-            if (err) throw err;
-            console.log('The file has been saved!');
-          }
-          );
+          // writ
           
           } catch (error) {
             build.failBuild('Error message', { error });
