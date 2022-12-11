@@ -47,7 +47,7 @@ export const onPreBuild = async function ({
     //   setEnvVars(envVarKey, envVarVal);
     // })
   } catch (error) {
-    NetlifyAPI.build.failBuild('Error message', { error });
+    console.log(error)
   }
 }
 
